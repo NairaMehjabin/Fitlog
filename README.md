@@ -1,7 +1,5 @@
 # 🏋️‍♂️ Fitlog — Fitness & Workout Management Web App
 
-![Fitlog Banner](https://fitlog-naira2.vercel.app/assets/banner.png)
-
 **Fitlog** is a dark, no-nonsense workout tracking web application designed to help users browse, filter, and plan their fitness routines seamlessly. Built with Next.js App Router, TypeScript, and Tailwind CSS, Fitlog provides an intuitive UI to manage daily workout plans effectively with real-time stats updates and LocalStorage persistence.
 
 🌐 **Live Demo:** [fitlog-naira2.vercel.app](https://fitlog-naira2.vercel.app/)  
@@ -27,3 +25,31 @@
 - **Icons:** [Lucide React](https://lucide.dev/)
 - **Deployment:** [Vercel](https://vercel.com/)
 - **API:** Custom Fitlog Worker API (`https://api.abcz.workers.dev/api/fitlog`)
+
+---
+
+## 🚀 Getting Started
+
+To run Fitlog locally on your machine, follow these steps:
+
+### Prerequisites
+
+Ensure you have **Node.js (v18+)** and **npm** installed on your system.
+
+### Installation
+
+1. **Clone the repository:**
+   ```bash
+   git clone [https://github.com/NairaMehjabin/Fitlog.git](https://github.com/NairaMehjabin/Fitlog.git)
+   cd Fitlog
+Install dependencies:
+
+Bash
+npm install
+Start the development server:
+
+Bash
+npm run dev
+Open in browser:
+
+Navigate to http://localhost:3000 to view the application locally.
