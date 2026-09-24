@@ -1,10 +1,10 @@
-// app/workout/[id]/page.tsx
 "use client";
 
 import { useEffect, useState, use } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { CalendarPlus, Bookmark, ArrowLeft } from "lucide-react";
+import { CalendarPlus, Bookmark, ArrowLeft, Check } from "lucide-react";
+import { toast } from "react-hot-toast";
 
 interface WorkoutDetail {
   id: string | number;
@@ -37,13 +37,33 @@ export default function WorkoutDetailPage({
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
 
-useEffect(() => {
+  const [inTodayPlan, setInTodayPlan] = useState(false);
+  const [inSavedPlan, setInSavedPlan] = useState(false);
+  const [todayCount, setTodayCount] = useState<number>(0);
+
+  useEffect(() => {
     async function fetchWorkoutDetail() {
       try {
         const res = await fetch(`https://api.abcz.workers.dev/api/fitlog/${id}`);
         if (!res.ok) throw new Error("Failed to fetch workout details");
         const data = await res.json();
-        setWorkout(data.data || data);
+        const workoutData = data.data || data;
+        setWorkout(workoutData);
+
+        // Check stored state
+        const storedToday = localStorage.getItem("fitlog_today_plan");
+        const storedSaved = localStorage.getItem("fitlog_saved_plan");
+
+        if (storedToday) {
+          const list: WorkoutDetail[] = JSON.parse(storedToday);
+          setTodayCount(list.length);
+          setInTodayPlan(list.some((item) => String(item.id) === String(workoutData.id)));
+        }
+
+        if (storedSaved) {
+          const list: WorkoutDetail[] = JSON.parse(storedSaved);
+          setInSavedPlan(list.some((item) => String(item.id) === String(workoutData.id)));
+        }
       } catch (err) {
         console.error("Error fetching detail:", err);
         setError(true);
@@ -56,6 +76,65 @@ useEffect(() => {
       fetchWorkoutDetail();
     }
   }, [id]);
+
+  const handleToggleTodayPlan = () => {
+    if (!workout) return;
+
+    try {
+      const stored = localStorage.getItem("fitlog_today_plan");
+      let currentList: WorkoutDetail[] = stored ? JSON.parse(stored) : [];
+
+      if (inTodayPlan) {
+        // Remove item
+        currentList = currentList.filter((item) => String(item.id) !== String(workout.id));
+        setInTodayPlan(false);
+        setTodayCount(currentList.length);
+        toast.success(`Removed "${workout.name}" from Today's Plan`);
+      } else {
+        if (currentList.length >= 5) {
+          toast.error("Cap of 5 lifts reached for today! Finish some to add more.");
+          return;
+        }
+        // Add item
+        currentList.push(workout);
+        setInTodayPlan(true);
+        setTodayCount(currentList.length);
+        toast.success(`Added "${workout.name}" to Today's Plan!`);
+      }
+
+      localStorage.setItem("fitlog_today_plan", JSON.stringify(currentList));
+      window.dispatchEvent(new Event("fitlog_storage_update"));
+    } catch (err) {
+      console.error("Error updating today's plan:", err);
+    }
+  };
+
+  //Add or Remove from Saved Lifts
+  const handleToggleSavedPlan = () => {
+    if (!workout) return;
+
+    try {
+      const stored = localStorage.getItem("fitlog_saved_plan");
+      let currentList: WorkoutDetail[] = stored ? JSON.parse(stored) : [];
+
+      if (inSavedPlan) {
+        // Remove item
+        currentList = currentList.filter((item) => String(item.id) !== String(workout.id));
+        setInSavedPlan(false);
+        toast.success(`Removed "${workout.name}" from Saved Lifts`);
+      } else {
+        // Add item
+        currentList.push(workout);
+        setInSavedPlan(true);
+        toast.success(`Saved "${workout.name}" for later!`);
+      }
+
+      localStorage.setItem("fitlog_saved_plan", JSON.stringify(currentList));
+      window.dispatchEvent(new Event("fitlog_storage_update"));
+    } catch (err) {
+      console.error("Error updating saved plan:", err);
+    }
+  };
 
   if (loading) {
     return (
@@ -110,6 +189,8 @@ useEffect(() => {
           "Press up in a slight arc until elbows lock without bouncing.",
           "Keep shoulder blades pinched and a natural arch in the back.",
         ];
+
+  const isPlanCapped = todayCount >= 5 && !inTodayPlan;
 
   return (
     <main className="w-full min-h-screen bg-[#0b0c10] text-white py-10 px-4 sm:px-6 lg:px-8 pb-32 pt-20">
@@ -228,18 +309,44 @@ useEffect(() => {
           <div className="flex flex-col sm:flex-row items-center gap-4 pt-2">
             <button
               type="button"
-              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-[#ccff00] text-black font-extrabold text-xs sm:text-sm px-6 py-3.5 rounded-xl hover:bg-[#b8e600] transition-colors uppercase tracking-wider cursor-pointer"
+              onClick={handleToggleTodayPlan}
+              className={`w-full sm:w-auto inline-flex items-center justify-center gap-2 font-extrabold text-xs sm:text-sm px-6 py-3.5 rounded-xl transition-all uppercase tracking-wider cursor-pointer ${
+                inTodayPlan
+                  ? "bg-zinc-800 text-white border border-zinc-700"
+                  : isPlanCapped
+                  ? "bg-zinc-800/80 text-zinc-400 border border-zinc-700/80 opacity-70 hover:opacity-100"
+                  : "bg-[#ccff00] text-black hover:bg-[#b8e600]"
+              }`}
             >
-              <CalendarPlus className="w-4 h-4 stroke-[2.5]" />
-              <span>Add to today&apos;s plan</span>
+              {inTodayPlan ? (
+                <>
+                  <Check className="w-4 h-4 stroke-[3] text-[#ccff00]" />
+                  <span>Added to Today&apos;s Plan</span>
+                </>
+              ) : isPlanCapped ? (
+                <>
+                  <CalendarPlus className="w-4 h-4 stroke-[2.5] text-zinc-400" />
+                  <span>Plan Full (5/5)</span>
+                </>
+              ) : (
+                <>
+                  <CalendarPlus className="w-4 h-4 stroke-[2.5]" />
+                  <span>Add to today&apos;s plan</span>
+                </>
+              )}
             </button>
 
             <button
               type="button"
-              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-transparent border border-zinc-800 hover:border-zinc-700 text-white font-bold text-xs sm:text-sm px-6 py-3.5 rounded-xl transition-colors uppercase tracking-wider cursor-pointer"
+              onClick={handleToggleSavedPlan}
+              className={`w-full sm:w-auto inline-flex items-center justify-center gap-2 font-bold text-xs sm:text-sm px-6 py-3.5 rounded-xl transition-all uppercase tracking-wider cursor-pointer ${
+                inSavedPlan
+                  ? "bg-zinc-800 text-[#ccff00] border border-[#ccff00]/40"
+                  : "bg-transparent border border-zinc-800 hover:border-zinc-700 text-white"
+              }`}
             >
-              <Bookmark className="w-4 h-4 stroke-[2.5]" />
-              <span>Save for later</span>
+              <Bookmark className={`w-4 h-4 stroke-[2.5] ${inSavedPlan ? "fill-[#ccff00]" : ""}`} />
+              <span>{inSavedPlan ? "Saved in Lifts" : "Save for later"}</span>
             </button>
           </div>
         </div>

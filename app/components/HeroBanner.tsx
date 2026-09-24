@@ -1,4 +1,3 @@
-// components/HeroBanner.tsx
 "use client";
 
 import Image from "next/image";

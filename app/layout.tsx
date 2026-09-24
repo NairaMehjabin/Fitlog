@@ -4,6 +4,7 @@ import { Inter, Oswald } from "next/font/google";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import "./globals.css";
+import { Toaster } from "react-hot-toast";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -35,6 +36,34 @@ export default function RootLayout({
           {children}
         </main>
         <Footer />
+
+        {/*Toast */}
+        <Toaster
+          position="bottom-right"
+          toastOptions={{
+            duration: 3000,
+            style: {
+              background: "#12141a",
+              color: "#ffffff",
+              border: "1px solid #27272a",
+              borderRadius: "12px",
+              fontSize: "14px",
+              fontWeight: "500",
+            },
+            success: {
+              iconTheme: {
+                primary: "#ccff00",
+                secondary: "#0b0c10",
+              },
+            },
+            error: {
+              iconTheme: {
+                primary: "#ef4444",
+                secondary: "#ffffff",
+              },
+            },
+          }}
+        />
       </body>
     </html>
   );
