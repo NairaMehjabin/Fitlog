@@ -1,7 +1,5 @@
 # 🏋️‍♂️ Fitlog — Fitness & Workout Management Web App
 
-![Fitlog Banner](https://fitlog-naira2.vercel.app/assets/banner.png)
-
 **Fitlog** is a dark, no-nonsense workout tracking web application designed to help users browse, filter, and plan their fitness routines seamlessly. Built with Next.js App Router, TypeScript, and Tailwind CSS, Fitlog provides an intuitive UI to manage daily workout plans effectively with real-time stats updates and LocalStorage persistence.
 
 🌐 **Live Demo:** [fitlog-naira2.vercel.app](https://fitlog-naira2.vercel.app/)  
