@@ -66,9 +66,9 @@ export default function WorkoutLibrary() {
       const query = searchQuery.toLowerCase().trim();
       result = result.filter((workout) => {
         const nameMatch = workout.name?.toLowerCase().includes(query);
-        const tags =
+        const tags: string[] =
           workout.muscleGroups || workout.muscles || workout.category || [];
-        const tagMatch = tags.some((tag) => tag.toLowerCase().includes(query));
+        const tagMatch = tags.some((tag: string) => tag.toLowerCase().includes(query));
 
         return nameMatch || tagMatch;
       });
@@ -87,8 +87,8 @@ export default function WorkoutLibrary() {
         return calB - calA;
       }
       if (sortBy === "rating") {
-        const rateA = Number(a.rating || a.score || 0);
-        const rateB = Number(b.rating || b.score || 0);
+        const rateA = Number(a.rating ?? a.score ?? 0);
+        const rateB = Number(b.rating ?? b.score ?? 0);
         return rateB - rateA;
       }
       return 0;
