@@ -1,36 +1,29 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🏋️‍♂️ Fitlog — Fitness & Workout Management Web App
 
-## Getting Started
+![Fitlog Banner](https://fitlog-naira2.vercel.app/assets/banner.png)
 
-First, run the development server:
+**Fitlog** is a dark, no-nonsense workout tracking web application designed to help users browse, filter, and plan their fitness routines seamlessly. Built with Next.js App Router, TypeScript, and Tailwind CSS, Fitlog provides an intuitive UI to manage daily workout plans effectively with real-time stats updates and LocalStorage persistence.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+🌐 **Live Demo:** [fitlog-naira2.vercel.app](https://fitlog-naira2.vercel.app/)  
+📂 **GitHub Repository:** [github.com/NairaMehjabin/Fitlog](https://github.com/NairaMehjabin/Fitlog)
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+---
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## ✨ Key Features
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+1. **🏋️ Interactive 3x4 Workout Library:** Browse 12 major lifts covering various muscle groups with difficulty ratings, equipment specs, estimated duration, and calories burned fetched live from the API.
+2. **🔍 Dynamic Search, Filtering & Sorting:** Instantly search exercises by name or muscle group tags (`CHEST`, `ARMS`, `LEGS`) and sort dynamically by **Duration**, **Calories**, or **Rating**.
+3. **📅 Today's Plan & Saved Workouts Management:** Add lifts directly to "Today's Plan" (with a maximum cap of 5 lifts) or save them for later. Interactive navbar counters dynamically reflect saved and planned items.
+4. **📊 Live Metrics Dashboard:** View real-time aggregated metrics (Total Exercises, Minutes, and Calories) on the `/my-plan` page that update instantly as you add, mark as done, or remove workouts.
+5. **💾 LocalStorage Persistence & Interactive Toasts:** All plan states survive page reloads and browser refreshes with clear visual feedback provided via contextual toast notifications.
 
-## Learn More
+---
 
-To learn more about Next.js, take a look at the following resources:
+## 🛠️ Tech Stack
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- **Framework:** [Next.js 16](https://nextjs.org/) (App Router, Turbopack)
+- **Language:** [TypeScript](https://www.typescriptlang.org/)
+- **Styling:** [Tailwind CSS](https://tailwindcss.com/)
+- **Icons:** [Lucide React](https://lucide.dev/)
+- **Deployment:** [Vercel](https://vercel.com/)
+- **API:** Custom Fitlog Worker API (`https://api.abcz.workers.dev/api/fitlog`)
