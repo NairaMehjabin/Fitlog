@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState, useMemo, useCallback } from "react";
-import { Search, X, ChevronDown } from "lucide-react";
+import { Search, X, ChevronDown, Loader2 } from "lucide-react";
 import WorkoutCard, { Workout } from "./WorkoutCard";
 
 type SortOption = "duration" | "calories" | "rating";
@@ -162,20 +162,21 @@ export default function WorkoutLibrary() {
           </div>
         </div>
 
-        {/* Loading Skeleton */}
+        {/* Loading Spinner Circle State */}
         {loading && (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
-            {Array.from({ length: 6 }).map((_, i) => (
-              <div
-                key={i}
-                className="bg-[#12141a] border border-zinc-800/80 rounded-3xl h-[420px] animate-pulse p-6 flex flex-col justify-between"
-              >
-                <div className="w-full h-48 bg-zinc-800/50 rounded-2xl mb-4" />
-                <div className="w-24 h-6 bg-zinc-800/50 rounded-full mb-3" />
-                <div className="w-3/4 h-8 bg-zinc-800/50 rounded-lg mb-2" />
-                <div className="w-1/2 h-4 bg-zinc-800/50 rounded-lg" />
-              </div>
-            ))}
+          <div className="flex flex-col items-center justify-center py-28 bg-[#12141a]/60 border border-zinc-800/80 rounded-3xl backdrop-blur-md">
+            <div className="relative flex items-center justify-center">
+              {/* Outer pulsing ring */}
+              <div className="absolute w-16 h-16 rounded-full border-2 border-[#ccff00]/20 animate-ping" />
+              {/* Spinning gradient loader */}
+              <Loader2 className="w-12 h-12 text-[#ccff00] animate-spin stroke-[1.75]" />
+            </div>
+            <p className="mt-6 text-zinc-200 text-sm font-semibold tracking-wider uppercase font-[family-name:var(--font-oswald)]">
+              Fetching Workout Library...
+            </p>
+            <p className="text-xs text-zinc-500 mt-1">
+              Preparing exercises and target muscle groups
+            </p>
           </div>
         )}
 
