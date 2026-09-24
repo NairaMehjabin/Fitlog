@@ -28,8 +28,7 @@ export default function WorkoutLibrary() {
   }, []);
 
   return (
-    <section id="library" className="w-full py-8 px-4 sm:px-6 lg:px-8">
-      {/* Container max-width matching HeroBanner's max-w-[1550px] */}
+    <section id="library" className="w-full py-8 px-4 sm:px-6 lg:px-8 pb-35">
       <div className="max-w-[1550px] mx-auto">
         {/* Header */}
         <div className="mb-8">
@@ -41,7 +40,7 @@ export default function WorkoutLibrary() {
           </p>
         </div>
 
-        {/* Loading Skeleton */}
+        {/* Loading skeleton */}
         {loading && (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
             {Array.from({ length: 6 }).map((_, i) => (
@@ -58,14 +57,14 @@ export default function WorkoutLibrary() {
           </div>
         )}
 
-        {/* Error Fallback */}
+        {/* Error fallback */}
         {error && !loading && (
           <div className="text-center py-16 bg-[#12141a] rounded-3xl border border-zinc-800/80">
             <p className="text-zinc-400">Could not load workout library right now.</p>
           </div>
         )}
 
-        {/* Workouts Grid */}
+        {/* workouts grid */}
         {!loading && !error && (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
             {workouts.map((workout, index) => (
