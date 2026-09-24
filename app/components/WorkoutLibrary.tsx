@@ -68,7 +68,9 @@ export default function WorkoutLibrary() {
         const nameMatch = workout.name?.toLowerCase().includes(query);
         const tags: string[] =
           workout.muscleGroups || workout.muscles || workout.category || [];
-        const tagMatch = tags.some((tag: string) => tag.toLowerCase().includes(query));
+        const tagMatch = tags.some((tag: string) =>
+          tag.toLowerCase().includes(query)
+        );
 
         return nameMatch || tagMatch;
       });
@@ -98,22 +100,22 @@ export default function WorkoutLibrary() {
   const isPlanFull = planCount >= 5;
 
   return (
-    <section id="library" className="w-full py-8 px-4 sm:px-6 lg:px-8 pb-35">
+    <section id="library" className="w-full py-6 sm:py-8 px-4 sm:px-6 lg:px-8 pb-20 sm:pb-32">
       <div className="max-w-[1550px] mx-auto">
         
         {/* Header & Controls Container */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-8">
+        <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6 mb-6 sm:mb-8">
           <div>
-            <h2 className="text-3xl sm:text-4xl font-bold uppercase tracking-tight text-white mb-2 font-[family-name:var(--font-oswald)]">
+            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold uppercase tracking-tight text-white mb-1.5 sm:mb-2 font-[family-name:var(--font-oswald)]">
               THE LIBRARY
             </h2>
-            <p className="text-zinc-400 text-sm sm:text-base font-normal">
+            <p className="text-zinc-400 text-xs sm:text-sm lg:text-base font-normal">
               Twelve lifts covering every major muscle group.
             </p>
           </div>
 
           {/* Search Bar & Sort Dropdown */}
-          <div className="flex flex-col sm:flex-row items-center gap-3 w-full md:w-auto">
+          <div className="flex flex-col sm:flex-row items-center gap-3 w-full lg:w-auto">
             
             {/* Search Input */}
             <div className="relative w-full sm:w-72">
@@ -125,12 +127,13 @@ export default function WorkoutLibrary() {
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 placeholder="Search by name or tag..."
-                className="w-full bg-[#12141a] border border-zinc-800 text-white placeholder-zinc-500 text-sm rounded-xl pl-10 pr-10 py-3 focus:outline-none focus:border-[#ccff00] transition-colors"
+                className="w-full bg-[#12141a] border border-zinc-800 text-white placeholder-zinc-500 text-sm rounded-xl pl-10 pr-10 py-2.5 sm:py-3 focus:outline-none focus:border-[#ccff00] transition-colors"
               />
               {searchQuery && (
                 <button
                   onClick={() => setSearchQuery("")}
                   className="absolute inset-y-0 right-0 pr-3.5 flex items-center text-zinc-400 hover:text-white transition-colors"
+                  aria-label="Clear search"
                 >
                   <X className="w-4 h-4" />
                 </button>
@@ -142,7 +145,7 @@ export default function WorkoutLibrary() {
               <select
                 value={sortBy}
                 onChange={(e) => setSortBy(e.target.value as SortOption)}
-                className="w-full sm:w-auto appearance-none bg-[#12141a] border border-zinc-800 text-white text-sm rounded-xl pl-4 pr-10 py-3 focus:outline-none focus:border-[#ccff00] transition-colors cursor-pointer"
+                className="w-full sm:w-auto appearance-none bg-[#12141a] border border-zinc-800 text-white text-sm rounded-xl pl-4 pr-10 py-2.5 sm:py-3 focus:outline-none focus:border-[#ccff00] transition-colors cursor-pointer"
               >
                 <option value="duration" className="bg-[#12141a] text-white">
                   Sort By: Duration
@@ -164,14 +167,14 @@ export default function WorkoutLibrary() {
 
         {/* Loading Spinner Circle State */}
         {loading && (
-          <div className="flex flex-col items-center justify-center py-28 bg-[#12141a]/60 border border-zinc-800/80 rounded-3xl backdrop-blur-md">
+          <div className="flex flex-col items-center justify-center py-20 sm:py-28 bg-[#12141a]/60 border border-zinc-800/80 rounded-3xl backdrop-blur-md px-4 text-center">
             <div className="relative flex items-center justify-center">
               {/* Outer pulsing ring */}
-              <div className="absolute w-16 h-16 rounded-full border-2 border-[#ccff00]/20 animate-ping" />
+              <div className="absolute w-14 h-14 sm:w-16 sm:h-16 rounded-full border-2 border-[#ccff00]/20 animate-ping" />
               {/* Spinning gradient loader */}
-              <Loader2 className="w-12 h-12 text-[#ccff00] animate-spin stroke-[1.75]" />
+              <Loader2 className="w-10 h-10 sm:w-12 sm:h-12 text-[#ccff00] animate-spin stroke-[1.75]" />
             </div>
-            <p className="mt-6 text-zinc-200 text-sm font-semibold tracking-wider uppercase font-[family-name:var(--font-oswald)]">
+            <p className="mt-6 text-zinc-200 text-xs sm:text-sm font-semibold tracking-wider uppercase font-[family-name:var(--font-oswald)]">
               Fetching Workout Library...
             </p>
             <p className="text-xs text-zinc-500 mt-1">
@@ -182,16 +185,16 @@ export default function WorkoutLibrary() {
 
         {/* Error Fallback */}
         {error && !loading && (
-          <div className="text-center py-16 bg-[#12141a] rounded-3xl border border-zinc-800/80">
-            <p className="text-zinc-400">Could not load workout library right now.</p>
+          <div className="text-center py-12 sm:py-16 bg-[#12141a] rounded-3xl border border-zinc-800/80 px-4">
+            <p className="text-zinc-400 text-sm sm:text-base">Could not load workout library right now.</p>
           </div>
         )}
 
         {/* No Results Fallback */}
         {!loading && !error && processedWorkouts.length === 0 && (
-          <div className="text-center py-16 bg-[#12141a] rounded-3xl border border-zinc-800/80">
-            <p className="text-zinc-300 font-semibold mb-1">No workouts found</p>
-            <p className="text-zinc-500 text-sm">
+          <div className="text-center py-12 sm:py-16 bg-[#12141a] rounded-3xl border border-zinc-800/80 px-4">
+            <p className="text-zinc-300 font-semibold text-sm sm:text-base mb-1">No workouts found</p>
+            <p className="text-zinc-500 text-xs sm:text-sm">
               Try searching for different terms like &quot;Chest&quot;, &quot;Bench&quot;, or &quot;Legs&quot;.
             </p>
           </div>
@@ -199,7 +202,7 @@ export default function WorkoutLibrary() {
 
         {/* Workouts Grid */}
         {!loading && !error && processedWorkouts.length > 0 && (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6 lg:gap-8">
             {processedWorkouts.map((workout, index) => (
               <WorkoutCard
                 key={workout.id || index}

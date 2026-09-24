@@ -109,7 +109,7 @@ export default function WorkoutDetailPage({
     }
   };
 
-  //Add or Remove from Saved Lifts
+  // Add or Remove from Saved Lifts
   const handleToggleSavedPlan = () => {
     if (!workout) return;
 
@@ -193,11 +193,11 @@ export default function WorkoutDetailPage({
   const isPlanCapped = todayCount >= 5 && !inTodayPlan;
 
   return (
-    <main className="w-full min-h-screen bg-[#0b0c10] text-white py-10 px-4 sm:px-6 lg:px-8 pb-32 pt-20">
-      <div className="max-w-[1280px] mx-auto flex flex-col lg:flex-row items-start justify-between gap-10 lg:gap-14">
+    <main className="w-full min-h-screen bg-[#0b0c10] text-white py-6 sm:py-10 px-4 sm:px-6 lg:px-8 pb-24 sm:pb-32 pt-16 sm:pt-20">
+      <div className="max-w-[1280px] mx-auto flex flex-col lg:flex-row items-start justify-between gap-8 sm:gap-10 lg:gap-14">
         
-        {/* Left Column */}
-        <div className="w-full max-w-[588px] lg:w-[588px] h-[500px] sm:h-[650px] lg:h-[735px] relative bg-[#12141a] rounded-[28px] overflow-hidden border border-zinc-800/80 shrink-0">
+        {/* Left Column - Responsive Aspect Ratio */}
+        <div className="w-full lg:w-[588px] aspect-[4/5] sm:aspect-[4/3] lg:aspect-auto lg:h-[735px] relative bg-[#12141a] rounded-2xl sm:rounded-[28px] overflow-hidden border border-zinc-800/80 shrink-0">
           <Image
             src={imageSrc}
             alt={workout.name}
@@ -212,21 +212,21 @@ export default function WorkoutDetailPage({
         <div className="flex-1 w-full flex flex-col justify-between self-stretch">
           <div>
             {/* Title */}
-            <h1 className="text-4xl sm:text-5xl lg:text-[52px] font-extrabold uppercase tracking-tight text-white mb-3 font-[family-name:var(--font-oswald)] leading-none">
+            <h1 className="text-3xl sm:text-5xl lg:text-[52px] font-extrabold uppercase tracking-tight text-white mb-2 sm:mb-3 font-[family-name:var(--font-oswald)] leading-none">
               {workout.name}
             </h1>
 
             {/* Subtitle and Description */}
-            <p className="text-zinc-400 text-sm sm:text-[15px] leading-relaxed mb-6 font-normal max-w-xl">
+            <p className="text-zinc-400 text-xs sm:text-sm lg:text-[15px] leading-relaxed mb-5 sm:mb-6 font-normal max-w-xl">
               {description}
             </p>
 
-            {/* Category */}
-            <div className="flex flex-wrap gap-2.5 mb-8">
+            {/* Category Tags */}
+            <div className="flex flex-wrap gap-2 sm:gap-2.5 mb-6 sm:mb-8">
               {tags.map((tag, idx) => (
                 <span
                   key={idx}
-                  className="bg-[#ccff00] text-black font-extrabold text-[12px] px-4 py-1.5 rounded-full uppercase tracking-wider"
+                  className="bg-[#ccff00] text-black font-extrabold text-[11px] sm:text-[12px] px-3.5 sm:px-4 py-1 sm:py-1.5 rounded-full uppercase tracking-wider"
                 >
                   {tag}
                 </span>
@@ -234,37 +234,37 @@ export default function WorkoutDetailPage({
             </div>
 
             {/* Key Specs Panel */}
-            <div className="bg-[#12141a]/90 border border-zinc-800/80 rounded-2xl p-5 mb-8 divide-y divide-zinc-800/60">
-              <div className="flex justify-between items-center py-2.5 text-xs sm:text-sm">
-                <span className="text-zinc-400 font-semibold tracking-wider uppercase text-[11px] sm:text-[12px]">
+            <div className="bg-[#12141a]/90 border border-zinc-800/80 rounded-xl sm:rounded-2xl p-4 sm:p-5 mb-6 sm:mb-8 divide-y divide-zinc-800/60">
+              <div className="flex justify-between items-center py-2 sm:py-2.5 text-xs sm:text-sm">
+                <span className="text-zinc-400 font-semibold tracking-wider uppercase text-[10px] sm:text-[12px]">
                   EQUIPMENT
                 </span>
-                <span className="text-white font-medium">{equipment}</span>
+                <span className="text-white font-medium text-right ml-2">{equipment}</span>
               </div>
 
-              <div className="flex justify-between items-center py-2.5 text-xs sm:text-sm">
-                <span className="text-zinc-400 font-semibold tracking-wider uppercase text-[11px] sm:text-[12px]">
+              <div className="flex justify-between items-center py-2 sm:py-2.5 text-xs sm:text-sm">
+                <span className="text-zinc-400 font-semibold tracking-wider uppercase text-[10px] sm:text-[12px]">
                   DIFFICULTY
                 </span>
                 <span className="text-white font-medium capitalize">{difficulty}</span>
               </div>
 
-              <div className="flex justify-between items-center py-2.5 text-xs sm:text-sm">
-                <span className="text-zinc-400 font-semibold tracking-wider uppercase text-[11px] sm:text-[12px]">
+              <div className="flex justify-between items-center py-2 sm:py-2.5 text-xs sm:text-sm">
+                <span className="text-zinc-400 font-semibold tracking-wider uppercase text-[10px] sm:text-[12px]">
                   SETS
                 </span>
                 <span className="text-white font-medium">{sets}</span>
               </div>
 
-              <div className="flex justify-between items-center py-2.5 text-xs sm:text-sm">
-                <span className="text-zinc-400 font-semibold tracking-wider uppercase text-[11px] sm:text-[12px]">
+              <div className="flex justify-between items-center py-2 sm:py-2.5 text-xs sm:text-sm">
+                <span className="text-zinc-400 font-semibold tracking-wider uppercase text-[10px] sm:text-[12px]">
                   REPS
                 </span>
                 <span className="text-white font-medium">{reps}</span>
               </div>
 
-              <div className="flex justify-between items-center py-2.5 text-xs sm:text-sm">
-                <span className="text-zinc-400 font-semibold tracking-wider uppercase text-[11px] sm:text-[12px]">
+              <div className="flex justify-between items-center py-2 sm:py-2.5 text-xs sm:text-sm">
+                <span className="text-zinc-400 font-semibold tracking-wider uppercase text-[10px] sm:text-[12px]">
                   DURATION
                 </span>
                 <span className="text-white font-medium">
@@ -272,8 +272,8 @@ export default function WorkoutDetailPage({
                 </span>
               </div>
 
-              <div className="flex justify-between items-center py-2.5 text-xs sm:text-sm">
-                <span className="text-zinc-400 font-semibold tracking-wider uppercase text-[11px] sm:text-[12px]">
+              <div className="flex justify-between items-center py-2 sm:py-2.5 text-xs sm:text-sm">
+                <span className="text-zinc-400 font-semibold tracking-wider uppercase text-[10px] sm:text-[12px]">
                   CALORIES
                 </span>
                 <span className="text-white font-medium">
@@ -281,8 +281,8 @@ export default function WorkoutDetailPage({
                 </span>
               </div>
 
-              <div className="flex justify-between items-center py-2.5 text-xs sm:text-sm">
-                <span className="text-zinc-400 font-semibold tracking-wider uppercase text-[11px] sm:text-[12px]">
+              <div className="flex justify-between items-center py-2 sm:py-2.5 text-xs sm:text-sm">
+                <span className="text-zinc-400 font-semibold tracking-wider uppercase text-[10px] sm:text-[12px]">
                   RATING
                 </span>
                 <span className="text-white font-medium">{rating}</span>
@@ -290,14 +290,14 @@ export default function WorkoutDetailPage({
             </div>
 
             {/* Instructions Section */}
-            <div className="mb-8">
-              <h3 className="text-white text-base sm:text-lg font-bold uppercase tracking-wider mb-4 font-[family-name:var(--font-oswald)]">
+            <div className="mb-6 sm:mb-8">
+              <h3 className="text-white text-sm sm:text-lg font-bold uppercase tracking-wider mb-3 sm:mb-4 font-[family-name:var(--font-oswald)]">
                 INSTRUCTIONS
               </h3>
-              <ol className="space-y-3">
+              <ol className="space-y-2.5 sm:space-y-3">
                 {instructionsList.map((step, idx) => (
-                  <li key={idx} className="flex items-start gap-2.5 text-zinc-300 text-xs sm:text-sm leading-relaxed">
-                    <span className="text-zinc-400 font-semibold select-none">{idx + 1}.</span>
+                  <li key={idx} className="flex items-start gap-2 sm:gap-2.5 text-zinc-300 text-xs sm:text-sm leading-relaxed">
+                    <span className="text-zinc-400 font-semibold select-none shrink-0">{idx + 1}.</span>
                     <span>{step}</span>
                   </li>
                 ))}
@@ -306,11 +306,11 @@ export default function WorkoutDetailPage({
           </div>
 
           {/* Action Buttons */}
-          <div className="flex flex-col sm:flex-row items-center gap-4 pt-2">
+          <div className="flex flex-col sm:flex-row items-center gap-3 sm:gap-4 pt-2">
             <button
               type="button"
               onClick={handleToggleTodayPlan}
-              className={`w-full sm:w-auto inline-flex items-center justify-center gap-2 font-extrabold text-xs sm:text-sm px-6 py-3.5 rounded-xl transition-all uppercase tracking-wider cursor-pointer ${
+              className={`w-full sm:w-auto inline-flex items-center justify-center gap-2 font-extrabold text-xs sm:text-sm px-5 sm:px-6 py-3 sm:py-3.5 rounded-xl transition-all uppercase tracking-wider cursor-pointer ${
                 inTodayPlan
                   ? "bg-zinc-800 text-white border border-zinc-700"
                   : isPlanCapped
@@ -339,7 +339,7 @@ export default function WorkoutDetailPage({
             <button
               type="button"
               onClick={handleToggleSavedPlan}
-              className={`w-full sm:w-auto inline-flex items-center justify-center gap-2 font-bold text-xs sm:text-sm px-6 py-3.5 rounded-xl transition-all uppercase tracking-wider cursor-pointer ${
+              className={`w-full sm:w-auto inline-flex items-center justify-center gap-2 font-bold text-xs sm:text-sm px-5 sm:px-6 py-3 sm:py-3.5 rounded-xl transition-all uppercase tracking-wider cursor-pointer ${
                 inSavedPlan
                   ? "bg-zinc-800 text-[#ccff00] border border-[#ccff00]/40"
                   : "bg-transparent border border-zinc-800 hover:border-zinc-700 text-white"
